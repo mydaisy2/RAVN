@@ -2,7 +2,7 @@
 
 ## Before You Start
 
-Anyone wishing to contribute to the **[raptorbird/RAVN](https://github.com/raptorbird/RAVN)** project **MUST read & sign the [Electronic RaptorBird Contribution License Agreement](https://goravn.com/cla)**. The RAVN team is legally prevented from accepting any pull requests from users who have not signed the CLA first.
+Anyone wishing to contribute to the **[raptorbird/RAVN](https://github.com/raptorbird/RAVN)** project **MUST read & sign the [Electronic RaptorBird Contribution License Agreement](http://goravn.com/cla)**. The RAVN team is legally prevented from accepting any pull requests from users who have not signed the CLA first.
 
 ## Reporting Bugs
 
