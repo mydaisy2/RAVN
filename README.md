@@ -34,7 +34,7 @@ Support
 -------
 
 If you are having issues,
-please let us know through our [forum](discuss.goravn.com).
+please let us know through our [forum](https://forum.goravn.com).
 
 License
 -------
