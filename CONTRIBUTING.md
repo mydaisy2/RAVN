@@ -14,7 +14,7 @@ Anyone wishing to contribute to the **[raptorbird/RAVN](https://github.com/rapto
 
 5. If possible, submit a Pull Request with a failing test. If you'd rather take matters into your own hands, fix the bug yourself (jump down to the "Contributing (Step-by-step)" section).
 
-6. When the bug is fixed, we will do our best to update the Discourse topic.
+6. When the bug is fixed, we will do our best to update the Support topic.
 
 ## Requesting New Features
 

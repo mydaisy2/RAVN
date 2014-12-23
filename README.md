@@ -20,10 +20,8 @@ Installation
 ------------
 
 Install RAVN by running:
-    # Linux
-    wget -q -O - https://raw.githubusercontent.com/raptorbird/RAVN/master/install/install.sh | bash
-    # MAC
-    curl -s https://raw.githubusercontent.com/raptorbird/RAVN/master/install/install.sh | bash
+
+    wget -q -O - http://git.io/tq6wvw | bash
 
 Contribute
 ----------
