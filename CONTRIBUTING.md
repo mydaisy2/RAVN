@@ -43,9 +43,8 @@ Anyone wishing to contribute to the **[raptorbird/RAVN](https://github.com/rapto
   * Search to see if your new functionality has been discussed on [the RAVN forum](https://forum.goravn.com/c/features), and include updates as appropriate
 
 4. Follow the Coding Conventions
-  * two spaces, no tabs
+  * four spaces, no tabs
   * no trailing whitespaces, blank lines should have no spaces
-  * use spaces around operators, after commas, colons, semicolons, around `{` and before `}`
   * no space after `(`, `[` or before `]`, `)`
   * avoid `return` when not required
 
