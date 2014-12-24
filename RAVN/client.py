@@ -123,9 +123,7 @@ class Drone(object):
         False:  If command was not confirmed by the server
         """
         self.ravn_client.send("T,"+str(alt))
-        if async:
-            return
-        if self.async:
+        if async or self.async:
             return
         while not self.ravn_client.takeoff: # Check if its in air yet
             time.sleep(.1)
@@ -142,9 +140,7 @@ class Drone(object):
         False:  If command was not confirmed by the server
         """
         self.ravn_client.send("L")
-        if async:
-            return
-        if self.async:
+        if async or self.async:
             return
         while not self.ravn_client.land:  # Check if its on ground
             time.sleep(.1)
@@ -166,9 +162,7 @@ class Drone(object):
         msg = ','.join(["G", str(latitude), str(longtitude), str(altitude)])
         self.ravn_client.wp_reached = False
         self.ravn_client.send(msg)
-        if async:
-            return
-        if self.async:
+        if async or self.async:
             return
         while not self.ravn_client.wp_reached:  # Check if it reached waypoint
             time.sleep(.1)
@@ -187,9 +181,7 @@ class Drone(object):
         msg = ''.join(["G", "-1", "-1", str(alt)])
         self.ravn_client.wp_reached = False
         self.ravn_client.send(msg)
-        if async:
-            return
-        if self.async:
+        if async or self.async:
             return
         while not self.ravn_client.wp_reached:  # Check if it reached waypoint
             time.sleep(.1)
