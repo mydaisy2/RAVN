@@ -8,7 +8,7 @@ provides developers with an abstract way to easily control
 a drone. A drone can be a quadrotor, airplane, car, or even boats.
 
 RAVN connects to the drone's flight controller through the mavlink
-protocol used by the APM & PIXHAWK class of controllers. This API
+protocol used by the PIXHAWK class of controllers. This API
 enables the developer to send the drone GPS Cordinates and headings,
 read the realtime telemetry data, and easily do basic functions like
 takeoff or landing with a single line of code.
@@ -35,7 +35,6 @@ Here's an example of how easy it is to use:
 Features
 --------
 
-* IDE with Maps integration
 * Automatic Takeoff and Landing
 * Navigation and Control
 * Asynchronous & Synchronous API
@@ -47,9 +46,7 @@ Install RAVN by running:
 
 .. code-block:: bash
 
-    git clone github.com/raptorbird/RAVN.git
-    cd RAVN
-    pip install -r requirements.txt
+    wget -q -O - http://git.io/tq6wvw | bash
 
 Contribute
 ----------
