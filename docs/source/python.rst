@@ -24,6 +24,8 @@ This function allows you to takeoff the drone to a desired altitude.
 +===========+==============================================+=========+
 | alt       | Desired altitude to takeoff to               | 1 meter |
 +-----------+----------------------------------------------+---------+
+| debug     | If true, waits 15 seconds before taking off  | True   |
++-----------+----------------------------------------------+---------+
 | async     | If false, command must complete to move on   | False   |
 +-----------+----------------------------------------------+---------+
 

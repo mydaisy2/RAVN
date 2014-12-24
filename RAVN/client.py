@@ -109,7 +109,7 @@ class Drone(object):
         self.ravn_client = RavnClient(address, protocols=['http-only', 'chat'])
         self.ravn_client.connect()
 
-    def takeoff(self, alt=1, async=False):
+    def takeoff(self, alt=1, debug=True, async=False):
         """
         Takes off at current position,
         and hovers at a height specified in meters
@@ -122,6 +122,8 @@ class Drone(object):
         True:   If command was confirmed by the server
         False:  If command was not confirmed by the server
         """
+        if debug:
+            time.sleep(15)
         self.ravn_client.send("T,"+str(alt))
         if async or self.async:
             return
