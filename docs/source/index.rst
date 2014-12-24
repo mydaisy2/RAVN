@@ -1,6 +1,8 @@
 RAVN: Easy to Develop Drone Platform
 ====================================
 
+Note: RAVN is currently in beta and only has functions working. The IDE has not been released yet.
+
 RAVN is the next generation of drone developer platform,
 provides developers with an abstract way to easily control
 a drone. A drone can be a quadrotor, airplane, car, or even boats.
