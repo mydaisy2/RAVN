@@ -19,7 +19,7 @@ Contents
    getting-started
    python
 
-Look how easy it is to use:
+Here's an example of how easy it is to use:
 
 .. code-block:: python
 
