@@ -26,7 +26,7 @@ Install RAVN by running:
 Contribute
 ----------
 
-- [Contributer Licence Agreement](http://goravn.com/cla)
+- [Contributer Licence Agreement](http://www.goravn.com/page/contributer-license-agreement)
 - [Issue Tracker](https://github.com/raptorbird/RAVN/issues)
 - [Source Code](https://github.com/raptorbird/RAVN)
 
