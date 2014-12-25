@@ -3,13 +3,15 @@ RAVN
 
 Easy to Develop Drone Platform
 
-Look at how straightforward and easy it is!:
+Look at how straightforward and easy it is:
 
     from RAVN import Drone
     # Get your stuff done
     myDrone = Drone()
+    myDrone.takeoff()
     myDrone.goto(3.43567, 4.56789, 30) #please change the coordinates to your desired ones
-
+    myDrone.land()
+    
 Features
 --------
 
