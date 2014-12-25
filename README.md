@@ -24,6 +24,10 @@ Installation
 Install RAVN by running:
 
     wget -q -O - http://git.io/tq6wvw | bash
+    
+Getting Started
+------------
+[Getting Started](http://www.goravn.com/v0.1/docs/getting-started)
 
 Contribute
 ----------
@@ -34,9 +38,7 @@ Contribute
 
 Support
 -------
-
-If you are having issues,
-please let us know through our [forum](https://forum.goravn.com).
+[http://forum.goravn.com/](https://forum.goravn.com).
 
 License
 -------
