@@ -27,7 +27,7 @@ Install RAVN by running:
     
 Getting Started
 ------------
-[Getting Started](http://www.goravn.com/v0.1/docs/getting-started)
+[Click Me to Get Started](http://www.goravn.com/v0.1/docs/getting-started)
 
 Contribute
 ----------
@@ -38,7 +38,7 @@ Contribute
 
 Support
 -------
-[http://forum.goravn.com/](https://forum.goravn.com).
+[http://forum.goravn.com/](https://forum.goravn.com)
 
 License
 -------
