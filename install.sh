@@ -9,5 +9,5 @@ fi
 mkdir -p $HOME/.RAVNServer/
 # Create server.py
 printf 'from RAVN import Server\nimport time\ntime.sleep(5)\ns = Server()\n' > $HOME/.RAVNServer/server.py
-printf 'api start %s/.RAVNServer/server.py' $HOME >> $HOME/mavinit.scr
+printf 'module load droneapi.module.api\napi start %s/.RAVNServer/server.py' $HOME >> $HOME/mavinit.scr
 sudo bash -c "printf 'api start %s/.RAVNServer/server.py' $HOME >> /root/mavinit.scr"
