@@ -12,22 +12,9 @@ Look at how straightforward and easy it is:
     myDrone.goto(3.43567, 4.56789, 30) #please change the coordinates to your desired ones
     myDrone.land()
     
-Features
---------
-
-* Automatic Takeoff and Landing
-* Navigation via Cordinates
-
-Installation
-------------
-
-Install RAVN by running:
-
-    wget -q -O - http://git.io/tq6wvw | bash
-    
 Getting Started
 ------------
-[Click Me to Get Started](http://www.goravn.com/v0.1/docs/getting-started)
+[Click Me to Get Started](http://www.goravn.com/docs/getting-started)
 
 Contribute
 ----------
