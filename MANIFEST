@@ -3,6 +3,4 @@ setup.cfg
 setup.py
 RAVN/__init__.py
 RAVN/client.py
-RAVN/diagnostics.py
-RAVN/sample.py
 RAVN/server.py

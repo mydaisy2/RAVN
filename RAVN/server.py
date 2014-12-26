@@ -38,7 +38,11 @@ class RavnServer(object):
         """
         Initialize the connection to RAVN
         """
-        self.ravn = local_connect().get_vehicles()[0]
+        try:
+            self.ravn = local_connect().get_vehicles()[0]
+        except Exception, e:
+            sys.exit()
+        self.create_pidfile()
         self.ravn.set_mavlink_callback(self.ravn_callback)
         self.ravn_current_waypoint = ""
         self.on_ground = True
@@ -72,6 +76,16 @@ class RavnServer(object):
             if abs(loc1.lat - loc2.lat) <= .0001:
                 if abs(loc1.lon - loc2.lon) <= .0001:
                     return True
+
+    @staticmethod
+    def create_pidfile():
+        """
+        Create PIDFile for RAVN, to let startup script know the Server
+        is setup
+        """
+        f = open('~/.RAVNServer/pidfile','w')
+        f.write(os.getpid())
+        f.close()
 
     def set_mode(self, mode):
         """
