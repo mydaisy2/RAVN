@@ -109,13 +109,13 @@ class Drone(object):
         self.ravn_client = RavnClient(address, protocols=['http-only', 'chat'])
         self.ravn_client.connect()
 
-    def takeoff(self, alt=1, debug=True, async=False):
+    def takeoff(self, alt=2, debug=True, async=False):
         """
         Takes off at current position,
         and hovers at a height specified in meters
 
         Keyword Arguments:
-        alt -- the altitude to takeoff in meters (default 1)
+        alt -- the altitude to takeoff in meters (default 2)
         async -- True = Non Blocking Call, False = Blocking Call (default False)
 
         Return:
@@ -147,7 +147,7 @@ class Drone(object):
         while not self.ravn_client.land:  # Check if its on ground
             time.sleep(.1)
 
-    def goto(self, latitude=-1, longtitude=-1, altitude=-1, async=False):
+    def goto(self, latitude=360, longtitude=360, altitude=150, async=False):
         """
         Go to a Location
 
@@ -169,7 +169,7 @@ class Drone(object):
         while not self.ravn_client.wp_reached:  # Check if it reached waypoint
             time.sleep(.1)
 
-    def gotoalt(self, alt=-1, async=False):
+    def gotoalt(self, alt=150, async=False):
         """
         Go to Altitude in meters
 
@@ -180,7 +180,7 @@ class Drone(object):
         True:   If command was confirmed
         False:  If command was not confirmed
         """
-        msg = ''.join(["G", "-1", "-1", str(alt)])
+        msg = ''.join(["G", "360", "360", str(alt)])
         self.ravn_client.wp_reached = False
         self.ravn_client.send(msg)
         if async or self.async:

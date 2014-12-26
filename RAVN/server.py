@@ -38,10 +38,6 @@ class RavnServer(object):
         """
         Initialize the connection to RAVN
         """
-        # Get DroneApi Vehicle, local_connect() is a variable provided
-        # by the DroneApi & mavproxy.py thread
-        # self.debug = True
-        # if not self.debug:
         self.ravn = local_connect().get_vehicles()[0]
         self.ravn.set_mavlink_callback(self.ravn_callback)
         self.ravn_current_waypoint = ""
@@ -84,11 +80,8 @@ class RavnServer(object):
         @params
         mode -- APM Flight modes, LOITER, STABILIZE, GUIDED, AUTO
         """
-        # if not self.debug:
         self.ravn.mode = VehicleMode(mode)
         self.ravn.flush()
-        # else:
-            # print "Setting Mode: %s" % mode
 
     def user_override(self):
         """
@@ -99,15 +92,11 @@ class RavnServer(object):
         True -- if channel 8 is HIGH
         False -- if channel 8 is LOW
         """
-        # if not self.debug:
         if self.ravn.channel_readback["6"] >= 1500:
             print "User Override: False"
             return False
         print "User Override: True"
         return True
-        # else:
-        #     print "User Override: False"
-        #     return False
 
     def goto(self, lat=None, lng=None, alt=None):
         """
@@ -118,7 +107,6 @@ class RavnServer(object):
         lng -- The target longtitude in degrees
         alt -- The target Altitude in meters
         """
-        # if not self.debug:
         if self.user_override():
             return
         if not -90 <= lat <= 90:
@@ -131,22 +119,16 @@ class RavnServer(object):
         self.set_mode("GUIDED")
         self.ravn.commands.goto(self.ravn_current_waypoint)
         self.ravn.flush()
-        # else:
-            # print "GOTO: Lat:%.5f Lon:%.5f Alt:%.5f" % (lat, lng, alt)
 
     def holdposition(self):
         """
         Hold the current position by send the drone to its current position
         """
-        # if not self.debug:
         self.ravn_current_waypoint = Location(self.ravn.location.lat,\
             self.ravn.location.lon, self.ravn.location.alt, is_relative=True)
         self.set_mode("GUIDED")
         self.ravn.commands.goto(self.ravn_current_waypoint)
         self.ravn.flush()
-        # else:
-            # print "GOTO: Current Position"
-
     def arm(self):
         """
         Tries to arm the Drone, if it fails more than 3 times then, it quits
@@ -174,11 +156,10 @@ class RavnServer(object):
         @params
         alt -- altitude target in meters
         """
-        # if not self.debug:
         if self.user_override():
             return
         if alt >= 150:
-            alt = 3
+            alt = 2
         if not self.arm():
             return
         self.ravn.channel_override = {3: 1500}
@@ -199,14 +180,11 @@ class RavnServer(object):
         self.arm_fail = 0
         self.goto(alt=alt)
         self.ravn.channel_override = {3: 0}
-        # else:
-            # print "Taking off to alt: %.5fm" % alt
 
     def land(self):
         """
         Land at current location
         """
-        # if not self.debug:
         if self.user_override():
             return
         self.is_landing = True
@@ -215,14 +193,11 @@ class RavnServer(object):
             0, 0, 0, 0, self.ravn.location.lat,\
             self.ravn.location.lon, 0)
         self.ravn.send_mavlink(msg)
-        # else:
-            # print "Landing!"
 
     def send_data(self):
         """
         Return a stringified list of data
         """
-        # if not self.debug:
         self.send(','.join(["%",
             str(self.ravn.mode.name),
             str(self.ravn.location.lat),
@@ -238,22 +213,6 @@ class RavnServer(object):
             str(self.ravn.groundspeed),
             str(self.ravn.airspeed)
         ]))
-        # else:
-            # self.send(','.join(["%",
-            #     str("LOITER"),
-            #     str(129.23212321),
-            #     str(229.23212321),
-            #     str(329.23212321),
-            #     str(123.1223122334),
-            #     str(223.1223122334),
-            #     str(323.1223122334),
-            #     str(189.23212),
-            #     str(289.23212),
-            #     str(389.23212),
-            #     str(True),
-            #     str(10.122),
-            #     str(20.122)
-            # ]))
 
     def listener(self, message):
         """
