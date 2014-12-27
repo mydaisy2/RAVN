@@ -106,7 +106,7 @@ class RavnServer(object):
         True -- if channel 8 is HIGH
         False -- if channel 8 is LOW
         """
-        if self.ravn.channel_readback["6"] >= 1500:
+        if self.ravn.channel_readback["7"] >= 1500:
             print "User Override: False"
             return False
         print "User Override: True"
