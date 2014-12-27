@@ -226,7 +226,7 @@ class Drone(object):
         """
         return self.ravn_client.ravn["velocity"]
 
-    def get_attitude(self):
+    def get_altitude(self):
         """
         Get the Altitude of the drone in meters
 
