@@ -110,6 +110,7 @@ class RavnServer(object):
             print "User Override: False"
             return False
         print "User Override: True"
+        self.ravn.channel_override = {3: 0}
         return True
 
     def goto(self, lat=None, lng=None, alt=None):

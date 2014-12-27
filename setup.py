@@ -16,7 +16,7 @@ class PyTest(Command):
 setup(
   name = 'RAVN',
   packages = ['RAVN'], # this must be the same as the name above
-  version = '0.2.3',
+  version = '0.2.4',
   description = 'Next Gen Smart Drone Platform',
   author = 'RaptorBird Robotics Inc.',
   author_email = 'contact@raptorbird.com',
