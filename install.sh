@@ -18,5 +18,5 @@ sudo bash -c "chmod +x /etc/init.d/ravnd"
 sudo bash -c "chown root:root /etc/init.d/ravnd"
 sudo bash -c "update-rc.d ravnd defaults"
 sudo bash -c "update-rc.d ravnd enable"
-printf 'module load droneapi.module.api\napi start %s/.RAVNServer/server.py' $HOME >> $HOME/mavinit.scr
-sudo bash -c "printf 'api start %s/.RAVNServer/server.py' $HOME >> /root/mavinit.scr"
+printf 'module load droneapi.module.api\napi start %s/.RAVNServer/server.py' $HOME > $HOME/mavinit.scr
+sudo bash -c "printf 'module load droneapi.module.api\napi start %s/.RAVNServer/server.py' $HOME >> /root/mavinit.scr"
