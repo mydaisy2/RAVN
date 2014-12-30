@@ -38,11 +38,12 @@ class RavnServer(object):
         """
         Initialize the connection to RAVN
         """
+        print "here"
         try:
             self.ravn = local_connect().get_vehicles()[0]
         except Exception, e:
+            print e
             sys.exit()
-        self.create_pidfile()
         self.ravn.set_mavlink_callback(self.ravn_callback)
         self.ravn_current_waypoint = ""
         self.on_ground = True
@@ -76,16 +77,6 @@ class RavnServer(object):
             if abs(loc1.lat - loc2.lat) <= .0001:
                 if abs(loc1.lon - loc2.lon) <= .0001:
                     return True
-
-    @staticmethod
-    def create_pidfile():
-        """
-        Create PIDFile for RAVN, to let startup script know the Server
-        is setup
-        """
-        f = open('~/.RAVNServer/pidfile','w')
-        f.write(os.getpid())
-        f.close()
 
     def set_mode(self, mode):
         """
@@ -299,9 +290,13 @@ class RavnHandler(WebSocket):
         self.close()
 
 class Server(object):
-    def __init__(port=9000):
+    def __init__(self, port=9000):
         RAVN_SERVER = make_server('', port, server_class=WSGIServer,\
             handler_class=WebSocketWSGIRequestHandler,\
             app=WebSocketWSGIApplication(handler_cls=RavnHandler))
         RAVN_SERVER.initialize_websockets_manager()
+        # For startup script to know we are initialized and ready
+        f = open(os.path.expanduser('~') + '/.RAVNServer/pidfile','w')
+        f.write(str(os.getpid()))
+        f.close()
         RAVN_SERVER.serve_forever()
