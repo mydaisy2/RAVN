@@ -17,9 +17,9 @@ start() {
     array=("${a[@]}" "${b[@]}")
     for x in $array
     do
-        > PIDFILE;
-        mavproxy.py --master=$x --cmd="module load droneapi.module.api; api start SERVER" &;
-        sleep 15;
+        > PIDFILE
+        mavproxy.py --master=$x --cmd="module load droneapi.module.api; api start SERVER" &
+        sleep 15
         if [ -s PIDFILE ]
         then
             return 0;
