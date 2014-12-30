@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 ### BEGIN INIT INFO
 # Provides:          ravnd
 # Required-Start:    networking
@@ -9,7 +9,7 @@
 # Description:       Starts the RAVN Server on any USB device, and if sucessfull
 #                    exits the script
 ### END INIT INFO
-start () {
+start() {
     shopt -s nullglob
     a=(/dev/ttyA*)
     b=(/dev/ttyU*)
@@ -18,7 +18,7 @@ start () {
     for x in $array
     do
         > PIDFILE;
-        mavproxy.py --master=$x --cmd="module load droneapi.module.api; api start SERVER"&;
+        mavproxy.py --master=$x --cmd="module load droneapi.module.api; api start SERVER" &;
         sleep 15;
         if [ -s PIDFILE ]
         then
@@ -28,24 +28,23 @@ start () {
         fi
     done
 }
-stop () {
-    kill -9 $(cat PIDFILE)
-}case "$1" in
+stop() {
+        kill -9 $(cat PIDFILE)
+}
+### main logic ###
+case "$1" in
   start)
         start
         ;;
   stop)
         stop
         ;;
-  status)
-        status FOO
-        ;;
   restart|reload|condrestart)
         stop
         start
         ;;
   *)
-        echo $"Usage: $0 {start|stop|restart|reload|status}"
+        echo $"Usage: $0 {start|stop|restart|reload}"
         exit 1
 esac
 exit 0
