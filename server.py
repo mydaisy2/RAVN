@@ -38,12 +38,10 @@ class RavnServer(object):
         """
         Initialize the connection to RAVN
         """
-        print "here"
         try:
             self.ravn = local_connect().get_vehicles()[0]
         except Exception, e:
             print e
-            sys.exit()
         self.ravn.set_mavlink_callback(self.ravn_callback)
         self.ravn_current_waypoint = ""
         self.on_ground = True
@@ -289,14 +287,14 @@ class RavnHandler(WebSocket):
         """
         self.close()
 
-class Server(object):
-    def __init__(self, port=9000):
-        RAVN_SERVER = make_server('', port, server_class=WSGIServer,\
-            handler_class=WebSocketWSGIRequestHandler,\
-            app=WebSocketWSGIApplication(handler_cls=RavnHandler))
-        RAVN_SERVER.initialize_websockets_manager()
-        # For startup script to know we are initialized and ready
-        f = open(os.path.expanduser('~') + '/.RAVNServer/pidfile','w')
-        f.write(str(os.getpid()))
-        f.close()
-        RAVN_SERVER.serve_forever()
+sleep(5)
+
+RAVN_SERVER = make_server('', 9000, server_class=WSGIServer,\
+    handler_class=WebSocketWSGIRequestHandler,\
+    app=WebSocketWSGIApplication(handler_cls=RavnHandler))
+RAVN_SERVER.initialize_websockets_manager()
+# For startup script to know we are initialized and ready
+f = open(os.path.expanduser('~') + '/.RAVNServer/pidfile','w')
+f.write(str(os.getpid()))
+f.close()
+RAVN_SERVER.serve_forever()
