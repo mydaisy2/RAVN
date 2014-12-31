@@ -21,8 +21,8 @@ mkdir -p $HOME/.RAVNServer/
 # Create server.py
 echo "Setting up autostart for RAVN Server"
 echo "Downloading autostart.py"
-#sudo bash -c "wget -O $HOME/.RAVNServer/server.py https://raw.githubusercontent.com/raptorbird/RAVN/master/startup.py"
-sudo bash -c "cp startup.py $HOME/.RAVNServer/server.py"
+#sudo bash -c "wget -O $HOME/.RAVNServer/server.py https://raw.githubusercontent.com/raptorbird/RAVN/master/server.py"
+sudo bash -c "cp server.py $HOME/.RAVNServer/server.py"
 echo "Downloading autostart.sh"
 #sudo bash -c "wget -O /etc/init.d/ravnd https://raw.githubusercontent.com/raptorbird/RAVN/master/autostart.sh"
 sudo bash -c "cp autostart.sh /etc/init.d/ravnd"
