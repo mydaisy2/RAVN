@@ -41,6 +41,7 @@ stop() {
         echo "PIDFile empty, killing rouge servers"
         killall -9 mavproxy.py
     fi
+    > PIDFILE
 }
 ### main logic ###
 case "$1" in
