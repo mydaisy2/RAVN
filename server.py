@@ -95,8 +95,9 @@ class RavnServer(object):
         True -- if channel 8 is HIGH
         False -- if channel 8 is LOW
         """
-        if self.ravn.channel_readback["7"] >= 1500:
-            print "User Override: False"
+        n = self.ravn.mode.name
+        if n != "STABILIZE" and n != "ALT_HOLD":
+            print "User Overrid: False"
             return False
         print "User Override: True"
         self.ravn.channel_override = {3: 0}
@@ -133,6 +134,7 @@ class RavnServer(object):
         self.set_mode("GUIDED")
         self.ravn.commands.goto(self.ravn_current_waypoint)
         self.ravn.flush()
+
     def arm(self):
         """
         Tries to arm the Drone, if it fails more than 3 times then, it quits
@@ -164,7 +166,7 @@ class RavnServer(object):
             return
         if alt >= 150:
             alt = 2
-        if not self.arm():
+        if not self.arm(): # Arms and Puts the Drone in Loiter
             return
         self.ravn.channel_override = {3: 1500}
         self.ravn.flush()
