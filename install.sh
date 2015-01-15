@@ -29,6 +29,7 @@ sudo bash -c "wget -O /etc/init.d/ravnd https://raw.githubusercontent.com/raptor
 echo "Setting Up autostart.sh"
 touch $PIDFILE
 sudo bash -c "sed -i 's|PIDFILE|$PIDFILE|g' /etc/init.d/ravnd"
+sudo bash -c "sed -i 's|PIDFILE|$PIDFILE|g' $SERVER"
 sudo bash -c "sed -i 's|SERVER|$SERVER|g' /etc/init.d/ravnd"
 sudo bash -c "chmod +x /etc/init.d/ravnd"
 sudo bash -c "chown root:root /etc/init.d/ravnd"

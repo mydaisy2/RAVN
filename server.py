@@ -296,7 +296,7 @@ RAVN_SERVER = make_server('', 9000, server_class=WSGIServer,\
     app=WebSocketWSGIApplication(handler_cls=RavnHandler))
 RAVN_SERVER.initialize_websockets_manager()
 # For startup script to know we are initialized and ready
-f = open(os.path.expanduser('~') + '/.RAVNServer/pidfile','w')
+f = open('PIDFILE','w')
 f.write(str(os.getpid()))
 f.close()
 RAVN_SERVER.serve_forever()
