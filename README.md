@@ -11,7 +11,7 @@ Look at how straightforward and easy it is:
     myDrone.takeoff()
     myDrone.goto(3.43567, 4.56789, 30) #please change the coordinates to your desired ones
     myDrone.land()
-    
+
 Getting Started
 ------------
 [Click Me to Get Started](http://www.goravn.com/docs/getting-started)
