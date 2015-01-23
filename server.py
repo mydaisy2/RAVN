@@ -29,6 +29,8 @@ from ws4py.server.wsgirefserver import WSGIServer, WebSocketWSGIRequestHandler
 from ws4py.server.wsgiutils import WebSocketWSGIApplication
 from ws4py.websocket import WebSocket
 from ws4py.messaging import TextMessage
+from geopy import Point
+from geopy.distance import VincentyDistance
 
 class RavnServer(object):
     """
@@ -102,7 +104,7 @@ class RavnServer(object):
         self.ravn.channel_override = {3: 0}
         return True
 
-    def goto(self, lat=None, lng=None, alt=None):
+    def goto(self, lat=181, lng=181, alt=181, heading=-1):
         """
         Goto Location
 
@@ -119,20 +121,92 @@ class RavnServer(object):
             lng = self.ravn.location.lon
         if alt >= 150:
             alt = self.ravn.location.alt
-        self.ravn_current_waypoint = Location(lat, lng, alt, is_relative=True)
         self.set_mode("GUIDED")
-        self.ravn.commands.goto(self.ravn_current_waypoint)
-        self.ravn.flush()
+        if heading == -1:
+            self.ravn_current_waypoint = Location(lat, lng, alt, is_relative=True)
+            self.ravn.commands.goto(self.ravn_current_waypoint)
+            self.ravn.flush()
+        else:
+            if l.is_relative:
+                frame = mavutil.mavlink.MAV_FRAME_GLOBAL_RELATIVE_ALT
+            else:
+                frame = mavutil.mavlink.MAV_FRAME_GLOBAL
+            msg = self.ravn.message_factory.command_long_encode(0,0,
+                mavutil.mavlink.MAV_CMD_OVERRIDE_GOTO,
+                mavutil.mavlink.MAV_GOTO_DO_HOLD,
+                mavutil.mavlink.MAV_GOTO_HOLD_AT_SPECIFIED_POSITION,
+                frame,
+                heading,
+                latitude,
+                longtitude,
+                altitude)
+            self.ravn.send_mavlink(msg)
 
-    def holdposition(self):
+    def holdposition(self, heading=-1):
         """
-        Hold the current position by send the drone to its current position
+        Hold the current position by send the drone to its current position,
+        and change heading if necessary
+
+        @params
+        heading -- The target heading in degrees
         """
-        self.ravn_current_waypoint = Location(self.ravn.location.lat,\
-            self.ravn.location.lon, self.ravn.location.alt, is_relative=True)
         self.set_mode("GUIDED")
-        self.ravn.commands.goto(self.ravn_current_waypoint)
-        self.ravn.flush()
+        if heading == -1:
+            msg = self.ravn.message_factory.command_long_encode(0,0,
+                mavutil.mavlink.MAV_CMD_OVERRIDE_GOTO,
+                mavutil.mavlink.MAV_GOTO_DO_HOLD,
+                mavutil.mavlink.MAV_GOTO_HOLD_AT_CURRENT_POSITION,
+                frame,
+                0,
+                0,
+                0,
+                0)
+            self.ravn.send_mavlink(msg)
+        else:
+            msg = self.ravn.message_factory.command_long_encode(0,0,
+                mavutil.mavlink.MAV_CMD_OVERRIDE_GOTO,
+                mavutil.mavlink.MAV_GOTO_DO_HOLD,
+                mavutil.mavlink.MAV_GOTO_HOLD_AT_SPECIFIED_POSITION,
+                frame,
+                heading,
+                self.ravn.location.lat,
+                self.ravn.location.lon,
+                self.ravn.location.alt)
+            self.ravn.send_mavlink(msg)
+
+    def set_roi(self, mode=0, lat=0, lng=0, alt=0):
+        """
+        Set or Disable Region of Interest for the Drone/Camera
+
+        @params
+        mode -- 0 - Disabled; 3 - Enabled; For more detail, MAV_ROI enum
+        lat -- Lattitude of Interest
+        lng -- Longtitude of Interest
+        alt -- Altitude of Interest
+        """
+        msg = self.ravn.message_factory.command_long_encode(0,0,
+            mavutil.mavlink.MAV_CMD_DO_SET_ROI,
+            mode,
+            0,
+            0,
+            0,
+            lat,
+            lon,
+            alt)
+        self.ravn.send_mavlink(msg)
+
+    def go_distance(self, distance=0, heading=0):
+        """
+        Go a set Distance from current point in the target heading
+
+        @params
+        distance -- Distance to go, in meters
+        heading -- Target direction, degrees from North
+        """
+        p = Point(self.ravn.location.lat, self.ravn.location.lon)
+        d = VincentyDistance(kilometers=distance/1000).destination(p, heading)
+        self.goto(lat=d.latitude, lng=d.longtitude)
+
     def arm(self):
         """
         Tries to arm the Drone, if it fails more than 3 times then, it quits
@@ -240,9 +314,12 @@ class RavnServer(object):
                 self.land()
             elif cmd == "G" and armed: # GOTO
                 self.goto(lat=float(message[1]), lng=float(message[2]),\
-                    alt=float(message[3]))
+                    alt=float(message[3]), heading=float(message[4]))
             elif cmd == "H" and armed: # HOVER
-                self.holdposition()
+                self.holdposition(heading=float(message[1]))
+            elif cmd == "P" and armed:
+                self.set_poi(mode=float(message[1]), lat=float(message[2]), lng=float(message[3]),\
+                    alt=float(message[4]))
             self.send_data()
         except Exception as _:
             exc_type, _, exc_tb = sys.exc_info()

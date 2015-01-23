@@ -20,6 +20,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 from ws4py.client.threadedclient import WebSocketClient
 import time
 
+from geopy import Point
+from geopy.distance import VincentyDistance
+
 class RavnClient(WebSocketClient):
     """
     Ravn WebSocket Client that connects to Ravn Server
@@ -187,6 +190,21 @@ class Drone(object):
             return
         while not self.ravn_client.wp_reached:  # Check if it reached waypoint
             time.sleep(.1)
+
+    def set_roi(self, latitude=360, longtitude=360, altitude=150):
+        msg = ''.join("R", str(3), str(latitude), str(longtitude), str(altitude))
+        self.ravn_client.wp_reached = False
+        self.ravn_client.send(msg)
+
+    def disable_roi(self):
+        msg = ''.join("R", "0", "0", "0", "0")
+        self.ravn_client.wp_reached = False
+        self.ravn_client.send(msg)
+
+    def go_distance(self, distance=0, heading=0, async=False):
+        msg = ''.join("D", str(distance), str(heading))
+        self.ravn_client.wp_reached = False
+        self.ravn_client.send(msg)
 
     def is_armed(self):
         """
