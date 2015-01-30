@@ -9,10 +9,12 @@ if command -v pip >/dev/null 2>&1; then
             else
                 echo "sudo not installed, run this script after you have sudo installed"
 		echo -e "install command for debian or ubuntu distros:\n\tapt-get install sudo"
+		exit 1;
             fi
 	else
-		echo "screen not installed, run this script after you have screen installed"
-		echo -e "install command for debian or ubuntu distros:\n\tsudo apt-get install screen"
+	    echo "screen not installed, run this script after you have screen installed"
+            echo -e "install command for debian or ubuntu distros:\n\tsudo apt-get install screen"
+            exit 1;
 	fi
 else
     echo "pip or screen is not installed, run this script after you have installed pip & screen.";
