@@ -1,11 +1,17 @@
 #!/bin/bash
+echo "Installing"
 echo "checking for pip & screen"
 if command -v pip >/dev/null 2>&1; then
 	if command -v screen >/dev/null 2>&1; then
-		echo "pip & screen is installed, proceeding"
-	    sudo bash -c "pip install RAVN"
+	    if command -v sudo >/dev/null 2>&1; then
+		echo "pip, screen & sudo is installed, proceeding"
+                sudo bash -c "pip install RAVN"
+            else
+                echo "sudo not installed, run this script after you have sudo installed"
+		echo -e "install command for debian or ubuntu distros:\n\tapt-get install sudo"
+            fi
 	else
-		echo "screen not installed, run this screep after you have screen installed"
+		echo "screen not installed, run this script after you have screen installed"
 		echo -e "install command for debian or ubuntu distros:\n\tsudo apt-get install screen"
 	fi
 else
