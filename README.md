@@ -1,3 +1,4 @@
+[![Stories in Ready](https://badge.waffle.io/raptorbird/RAVN.png?label=ready&title=Ready)](https://waffle.io/raptorbird/RAVN)
 RAVN
 ====
 
